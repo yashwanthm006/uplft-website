@@ -1,0 +1,183 @@
+/* ============ REVEAL-ON-SCROLL ============ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(.4,.2,.2,1), transform 0.7s cubic-bezier(.4,.2,.2,1);
+}
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  font-family: var(--font-display);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--lime);
+  color: var(--black);
+  box-shadow: var(--shadow-lime);
+}
+.btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid var(--border-strong);
+}
+.btn-outline:hover { border-color: var(--lime); color: var(--lime); }
+.btn-light { background: var(--black); color: var(--lime); }
+.btn-light:hover { background: var(--black-3); }
+.btn-full { width: 100%; }
+.btn-lg { padding: 18px 36px; font-size: 1rem; }
+
+/* ============ MAGNETIC BUTTON WRAPPER ============ */
+.magnetic-wrap { display: inline-block; }
+.magnetic-el { transition: transform 0.25s cubic-bezier(.2,.9,.3,1); display: inline-flex; }
+
+/* ============ SECTION TAG ============ */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px 7px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 18px;
+}
+.section-tag .dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 10px var(--lime);
+}
+
+/* ============ SCROLL PROGRESS BAR ============ */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 1001;
+  background: transparent;
+}
+.scroll-progress-bar {
+  height: 100%;
+  background: var(--lime);
+  box-shadow: 0 0 8px var(--lime);
+  transition: width 0.1s linear;
+}
+
+/* ============ MARQUEE ============ */
+.marquee {
+  overflow: hidden;
+  background: var(--lime);
+  padding: 16px 0;
+  transform: rotate(-1.2deg) scale(1.02);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+.marquee-item {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--black);
+  padding: 0 20px;
+  white-space: nowrap;
+}
+.marquee-item i { font-size: 0.6rem; color: var(--black); opacity: 0.6; }
+
+.marquee--dark {
+  background: var(--black-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transform: none;
+  padding: 22px 0;
+}
+.marquee--dark .marquee-item { color: var(--lime); }
+.marquee--dark .marquee-item i { color: var(--lime); }
+
+/* Wraps the Google reCAPTCHA widget on both forms. The widget renders at a
+   fixed native size (~304x78px) that Google doesn't make responsive, so on
+   narrow phones it can overflow its container. Scaling it down + clipping
+   any leftover sliver with overflow:hidden keeps it inside the form on any
+   screen width, while max-width/overflow-x:hidden on the wrapper itself is
+   a second line of defense against it pushing the page wider. */
+.recaptcha-wrap {
+  margin-top: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  transform: scale(0.85);
+  transform-origin: left top;
+  /* the scaled box still reserves its original ~78px height; pull the
+     trailing gap in so it doesn't leave odd empty space below it */
+  margin-bottom: -12px;
+}
+@media (max-width: 360px) {
+  .recaptcha-wrap { transform: scale(0.73); margin-bottom: -21px; }
+}
+
+/* ============ HONEYPOT (spam trap, invisible to real users) ============ */
+.hp-field {
+  position: absolute !important;
+  width: 1px !important; height: 1px !important;
+  padding: 0 !important; margin: -1px !important;
+  overflow: hidden !important; clip: rect(0,0,0,0) !important;
+  white-space: nowrap !important; border: 0 !important;
+  opacity: 0 !important; pointer-events: none !important;
+}
+
+/* ============ MULTI-SELECT (services picker) ============ */
+.multiselect { position: relative; }
+.multiselect-control {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  min-height: 48px; width: 100%;
+  background: var(--black); border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm); padding: 8px 40px 8px 12px;
+  cursor: pointer; position: relative;
+}
+.multiselect-placeholder { color: var(--text-dim); font-size: 0.92rem; }
+.multiselect-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--lime-soft); color: var(--lime);
+  border-radius: 50px; padding: 5px 6px 5px 12px; font-size: 0.8rem; font-weight: 600;
+}
+.multiselect-chip button { color: var(--lime); display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; }
+.multiselect-chip button:hover { color: var(--white); }
+.multiselect-search {
+  flex: 1; min-width: 120px; background: transparent; border: none; outline: none;
+  color: var(--white); font-size: 0.9rem; font-family: inherit;
+}
+.multiselect-caret {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--text-muted); font-size: 0.8rem; transition: transform 0.25s ease;
+  cursor: pointer;
+}
+.multiselect-caret.flip { transform: translateY(-50%) rotate(180deg); color: var(--lime); }
+.multiselect-menu {
+  position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 40;
+  background: var(--black-3); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  max-height: 240px; overflow-y: auto; box-shadow: var(--shadow-dark);
+}
+.multiselect-option {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; font-size: 0.9rem; cursor: pointer; transition: background 0.15s ease;
+}
+.multiselect-option:hover { background: rgba(255,255,255,0.05); }
+.multiselect-option input { accent-color: var(--lime); width: 16px; height: 16px; }
+.multiselect-empty { padding: 14px; text-align: center; color: var(--text-dim); font-size: 0.85rem; }
+
+/* ============ GENERIC CARD ============ */
+.card-base {
+  background: var(--black-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}

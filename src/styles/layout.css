@@ -1,0 +1,191 @@
+/* ============ PRELOADER ============ */
+#preloader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#preloader.hidden { opacity: 0; visibility: hidden; }
+.preloader-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--white);
+  text-align: center;
+}
+.preloader-mark span { color: var(--lime); }
+.loader-bar {
+  width: 140px; height: 3px; margin-top: 16px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px; overflow: hidden;
+}
+.loader-bar-fill {
+  height: 100%; background: var(--lime);
+  animation: loader-fill 0.7s ease forwards;
+}
+
+/* ============ SITE HEADER (TopBar + Navbar, pinned as one unit) ============ */
+/* Always fixed — not position:sticky. Sticky was unreliable here because
+   html/body carry overflow-x:hidden (needed to stop decorative elements
+   from pushing the page wider than the screen on mobile), and that turns
+   them into a scroll container that several browsers fail to keep sticky
+   children pinned against — the nav would scroll away instead of staying
+   put. Fixed positioning on a dedicated wrapper sidesteps that entirely.
+   The first section below (.hero) carries matching padding-top so content
+   doesn't start underneath this now out-of-flow header. */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+}
+
+/* ============ TOPBAR ============ */
+.topbar {
+  background: var(--black-2);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+  position: relative; z-index: 500;
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 24px;
+}
+.topbar-left { display: flex; gap: 24px; }
+.topbar-left a { color: var(--text-muted); transition: var(--transition); }
+.topbar-left a:hover { color: var(--lime); }
+.topbar-left i { color: var(--lime); margin-right: 6px; }
+.topbar-right { display: flex; align-items: center; gap: 20px; }
+.topbar-startup-badge {
+  color: var(--lime); font-weight: 600; display: flex; align-items: center; gap: 6px;
+}
+.topbar-social { display: flex; gap: 14px; }
+.topbar-social a { color: var(--text-muted); transition: var(--transition); }
+.topbar-social a:hover { color: var(--lime); }
+@media (max-width: 768px) { .topbar { display: none; } }
+
+/* ============ NAVBAR ============ */
+.navbar {
+  background: rgba(10,10,10,0.7);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+.navbar.scrolled { border-bottom-color: var(--border); background: rgba(10,10,10,0.92); }
+.navbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 24px;
+}
+.logo-img { height: 60px; width: auto; }
+.footer-brand .logo-img { height: 68px; }
+@media (max-width: 480px) {
+  .logo-img { height: 48px; }
+}
+.nav-links { display: flex; align-items: center; gap: 34px; }
+.nav-links a:not(.btn) {
+  font-size: 0.92rem; font-weight: 500; color: var(--text-muted);
+  position: relative; transition: var(--transition);
+}
+.nav-links a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; bottom: -6px;
+  width: 0; height: 2px; background: var(--lime);
+  transition: width 0.3s ease;
+}
+.nav-links a:not(.btn):hover, .nav-links a.active { color: var(--white); }
+.nav-links a:not(.btn):hover::after, .nav-links a.active::after { width: 100%; }
+.nav-cta-desktop { display: inline-flex; }
+.nav-cta { display: none; }
+
+.nav-toggle {
+  display: none; flex-direction: column; gap: 5px; width: 26px;
+}
+.nav-toggle span { height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-backdrop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .nav-cta-desktop { display: none; }
+  .nav-toggle { display: flex; }
+  .nav-backdrop {
+    display: block; position: fixed; top: 0; left: 0; right: 0; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  }
+  .nav-backdrop.open { opacity: 1; pointer-events: auto; }
+  .nav-links {
+    position: fixed; top: 0; right: 0; height: 100vh; width: min(80vw, 320px);
+    background: var(--black-2); border-left: 1px solid var(--border);
+    flex-direction: column; align-items: flex-start; justify-content: center;
+    gap: 26px; padding: 40px;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(.4,.2,.2,1);
+  }
+  .nav-links.open { transform: translateX(0); }
+  .nav-cta { display: inline-flex; margin-top: 10px; }
+}
+
+/* ============ STICKY ACTIONS ============ */
+.sticky-actions {
+  position: fixed; right: 22px; bottom: 22px; z-index: 850;
+  display: flex; flex-direction: column; gap: 12px;
+  /* Forces its own GPU compositing layer — fixes a known Android WebView/Chrome
+     bug where fixed-position elements sometimes fail to render or disappear. */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.sticky-btn {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; box-shadow: var(--shadow-dark);
+  transition: var(--transition);
+}
+.sticky-btn.whatsapp { background: #25D366; color: #fff; }
+.sticky-btn.call { background: var(--lime); color: var(--black); }
+.sticky-btn.top {
+  background: var(--black-3); color: var(--lime); border: 1px solid var(--border-strong);
+  opacity: 0; transform: scale(0.7); pointer-events: none;
+}
+.sticky-btn.top.show { opacity: 1; transform: scale(1); pointer-events: auto; }
+.sticky-btn:hover { transform: translateY(-3px) scale(1.05); }
+
+/* ============ FOOTER ============ */
+.footer { background: var(--black-2); border-top: 1px solid var(--border); padding-top: 72px; }
+.footer-grid {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+  gap: 40px; padding-bottom: 56px;
+}
+/* Same min-content overflow guard as the contact form: without this, the
+   reCAPTCHA widget's fixed native width can force this grid column (and
+   the page) wider than the viewport on narrow phones. */
+.footer-grid > * { min-width: 0; }
+.footer-brand p { margin: 16px 0 20px; font-size: 0.92rem; }
+.footer-brand .social-row { display: flex; gap: 12px; }
+.footer-brand .social-row a {
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); transition: var(--transition);
+}
+.footer-brand .social-row a:hover { background: var(--lime); color: var(--black); border-color: var(--lime); }
+.footer-col h5 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--white); margin-bottom: 18px; }
+.footer-col a { display: block; color: var(--text-muted); font-size: 0.92rem; margin-bottom: 12px; transition: var(--transition); }
+.footer-col a:hover { color: var(--lime); }
+.footer-newsletter p { font-size: 0.88rem; margin-bottom: 14px; }
+.newsletter-form { display: flex; border: 1px solid var(--border-strong); border-radius: 50px; overflow: hidden; }
+.newsletter-form input { flex: 1; background: transparent; border: none; padding: 12px 18px; color: var(--white); font-size: 0.88rem; outline: none; }
+.newsletter-form button { background: var(--lime); color: var(--black); width: 44px; display: flex; align-items: center; justify-content: center; }
+.footer-bottom { border-top: 1px solid var(--border); padding: 22px 0; }
+.footer-bottom-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.footer-bottom-inner p { font-size: 0.85rem; }
+.footer-legal { display: flex; gap: 22px; }
+.footer-legal a { font-size: 0.85rem; color: var(--text-muted); }
+.footer-legal a:hover { color: var(--lime); }
+
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,30 @@
+/* ============ BRAND TOKENS ============
+   Matches the UPLFT.co logo exactly: lime (#DFFF00) on near-black.
+   Change a value here and it updates across the entire site. */
+:root {
+  --lime: #DFFF00;
+  --lime-dim: #b6cf00;
+  --lime-soft: rgba(223, 255, 0, 0.12);
+  --lime-gradient: linear-gradient(135deg, #eaff5c, #b6e60a);
+
+  --black: #0a0a0a;
+  --black-2: #131313;
+  --black-3: #1b1b1b;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --white: #ffffff;
+  --text-muted: #9a9a9a;
+  --text-dim: #6f6f6f;
+
+  --font-display: 'Space Grotesk', 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-sm: 10px;
+  --radius: 20px;
+  --radius-lg: 28px;
+
+  --shadow-lime: 0 20px 50px -15px rgba(223, 255, 0, 0.25);
+  --shadow-dark: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+  --transition: all 0.35s cubic-bezier(.4, .2, .2, 1);
+}

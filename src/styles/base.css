@@ -1,0 +1,72 @@
+/* ============ RESET & BASE ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--white);
+  background: var(--black);
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+h2 { font-size: clamp(1.9rem, 3.4vw, 2.85rem); }
+h3 { font-size: 1.25rem; }
+
+p { color: var(--text-muted); }
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.text-gradient {
+  background: var(--lime-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.block { display: block; }
+
+.section-head {
+  max-width: 640px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+.section-head p { margin-top: 14px; font-size: 1.05rem; }
+
+/* scroll-margin-top clears the fixed site header (TopBar + Navbar) when
+   jumping to an in-page anchor like #services, so the section heading
+   doesn't land hidden underneath it. */
+section { position: relative; padding: 70px 0; scroll-margin-top: 130px; }
+@media (max-width: 768px) {
+  /* TopBar is hidden at this width, so the fixed header is shorter. */
+  section { scroll-margin-top: 90px; }
+}
+
+::selection { background: var(--lime); color: var(--black); }
+
+/* subtle grain texture used behind hero + dark sections for depth */
+.grain {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+  pointer-events: none;
+  opacity: 0.5;
+}
