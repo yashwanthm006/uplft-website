@@ -143,10 +143,6 @@ export default function Contact() {
           <p>Get a free strategy call &amp; audit. We reply within 1 business hour on WhatsApp.</p>
 
           <div className="info-item">
-            <i className="fa-solid fa-location-dot"></i>
-            <div><strong>Our Office</strong><span>{COMPANY.address}</span></div>
-          </div>
-          <div className="info-item">
             <i className="fa-solid fa-phone"></i>
             <div><strong>Call Us</strong><span>{COMPANY.phoneDisplay}</span></div>
           </div>
