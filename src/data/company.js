@@ -27,7 +27,12 @@ export const COMPANY = {
 // Template's "To Email" setting = To) and can be changed there any time
 // without touching this file or redeploying the site.
 export const EMAILJS_CONFIG = {
-  serviceId: "service_ydltavy",
+  // Switched from the Gmail-relay service to Hostinger's own SMTP
+  // (smtp.hostinger.com) so mail sends as uplft.support@uplft.co.in with
+  // proper SPF/DKIM alignment for uplft.co.in — this is what actually fixes
+  // spam-folder placement, since the domain in "From" now matches the
+  // domain that authenticated the send.
+  serviceId: "service_lyx2j6m",
   templateId: "template_w0hdgxf",
   publicKey: "Vew1jMQmOHuqUGOV0",
   // Second template: footer "Get Our Details" form. Its To Email field is
