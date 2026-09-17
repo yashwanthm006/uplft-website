@@ -5,7 +5,7 @@ export const COMPANY = {
   fullName: "UPLFT.co",
   tagline: "Creative Agency",
   taglineFull: "Branding • Content • Marketing",
-  email: "uplft.2026@gmail.com",
+  email: "uplft.support@uplft.co.in",
   // Primary number — every Call/WhatsApp link (tel:, wa.me) always points
   // here, even in spots that display both numbers as text.
   phone: "+91 90198 10269",
